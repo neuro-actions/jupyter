@@ -1,13 +1,45 @@
 kind: live
 name: Run Jupyter notebook
 author: Alexey Naiden
-descr: runs Jupter notebook with your image
-inputs:
-  arg1:
-    descr: param 1
-  arg2:
-    descr: param 2
-    default: value 2
+descr: runs Jupter notebook with your image and opens it in default web browser
+
+defaults:
+  preset: gpu-small-p
+  life_span: 1d
+
+volumes:
+  data:
+    remote: storage:$[[ flow.project_id ]]/data
+    mount: /project/data
+    local: data
+  code:
+    remote: storage:$[[ flow.project_id ]]/{{ cookiecutter.code_directory }}
+    mount: /project/{{ cookiecutter.code_directory }}
+    local: {{ cookiecutter.code_directory }}
+  config:
+    remote: storage:$[[ flow.project_id ]]/config
+    mount: /project/config
+    local: config
+    read_only: True
+  notebooks:
+    remote: storage:$[[ flow.project_id ]]/notebooks
+    mount: /project/notebooks
+    local: notebooks
+  results:
+    remote: storage:$[[ flow.project_id ]]/results
+    mount: /project/results
+    local: results
+  project:
+    remote: storage:$[[ flow.project_id ]]
+    mount: /project
+    local: .
+
+images:
+  myimage:
+    ref: image:$[[ flow.project_id ]]
+    dockerfile: $[[ flow.workspace ]]/Dockerfile
+    context: $[[ flow.workspace ]]/
+
 job:
     multi: True
     image: $[[ images.myimage.ref ]]
