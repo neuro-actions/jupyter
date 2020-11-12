@@ -1,64 +1,49 @@
 kind: live
 name: Run Jupyter notebook
 author: Alexey Naiden
-descr: runs Jupter notebook with your image and opens it in default web browser
+descr: runs Jupyter notebook with your image and opens it in default web browser
 
-defaults:
-  preset: gpu-small-p
-  life_span: 1d
-
-volumes:
-  data:
-    remote: storage:$[[ flow.project_id ]]/data
-    mount: /project/data
-    local: data
-  code:
-    remote: storage:$[[ flow.project_id ]]/{{ cookiecutter.code_directory }}
-    mount: /project/{{ cookiecutter.code_directory }}
-    local: {{ cookiecutter.code_directory }}
-  config:
-    remote: storage:$[[ flow.project_id ]]/config
-    mount: /project/config
-    local: config
-    read_only: True
-  notebooks:
-    remote: storage:$[[ flow.project_id ]]/notebooks
-    mount: /project/notebooks
-    local: notebooks
-  results:
-    remote: storage:$[[ flow.project_id ]]/results
-    mount: /project/results
-    local: results
-  project:
-    remote: storage:$[[ flow.project_id ]]
-    mount: /project
-    local: .
-
-images:
-  myimage:
-    ref: image:$[[ flow.project_id ]]
-    dockerfile: $[[ flow.workspace ]]/Dockerfile
-    context: $[[ flow.workspace ]]/
+inputs:
+  image:
+    descr: image name
+  multi_args:
+    descr: additional arguments
+  http_port:
+    descr: http port for jupyter
+    default: "8888"
+  http_auth:
+    descr: whether to use http auth for jupter
+    default: "True"
+  volumes_data_remote:
+    descr: reference to a data volume
+  volumes_code_remote:
+    descr: reference to a code volume
+  volumes_config_remote:
+    descr: reference to a config volume
+  volumes_notebooks_remote:
+    descr: reference to a notebooks volume
+  volumes_results_remote:
+    descr: reference to a results volume
 
 job:
     multi: True
-    image: $[[ images.myimage.ref ]]
-    http_port: 8888
-    http_auth: True
+    image: $[[ inputs.image ]]
+    http_port: $[[ inputs.http_port ]]
+    http_auth: $[[ inputs.http_auth ]]
     browse: True
     detach: True
     volumes:
-      - $[[ volumes.data.ref_ro ]]
-      - $[[ volumes.code.ref_rw ]]
-      - $[[ volumes.config.ref_ro ]]
-      - $[[ volumes.notebooks.ref_rw ]]
-      - $[[ volumes.results.ref_rw ]]
+      - "$[[ inputs.volumes_data_remote ]]:/project/data:ro"
+      - "$[[ inputs.volumes_code_remote ]]:/project/modules:rw"
+      - "$[[ inputs.volumes_config_remote ]]:/project/config:ro"
+      - "$[[ inputs.volumes_notebooks_remote ]]:/project/notebooks:rw"
+      - "$[[ inputs.volumes_results_remote ]]:/project/results:rw"
     env:
-      PYTHONPATH: $[[ volumes.code.mount ]]
+      PYTHONPATH: /project/modules
     cmd: >-
-      jupyter $[[ multi.args ]]
+      jupyter notebook $[[ inputs.multi_args ]]
         --no-browser
         --ip=0.0.0.0
         --allow-root
         --NotebookApp.token=
-        --notebook-dir=$[[ volumes.notebooks.mount ]]
+        --notebook-dir=/project/notebooks
