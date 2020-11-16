@@ -8,6 +8,7 @@ inputs:
     descr: image name
   multi_args:
     descr: additional arguments
+    default: ""
   http_port:
     descr: http port for jupyter
     default: "8888"

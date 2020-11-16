@@ -1,0 +1,44 @@
+kind: live
+title: Test
+
+defaults:
+  preset: cpu-small
+  life_span: 1h
+
+volumes:
+  data:
+    remote: "storage:"
+    mount: /project/data
+    local: data
+  code:
+    remote: "storage:"
+    mount: /project/modules
+    local: modules
+  config:
+    remote: "storage:"
+    mount: /project/config
+    local: config
+    read_only: True
+  notebooks:
+    remote: "storage:"
+    mount: /project/notebooks
+    local: notebooks
+  results:
+    remote: "storage:"
+    mount: /project/results
+    local: results
+  project:
+    remote: "storage:"
+    mount: /project
+    local: .
+
+jobs:
+  jupyter:
+    action: gh:neuro-actions/jupyter@master
+    args:
+      image: neuromation/base
+      volumes_data_remote: $[[ volumes.data.remote ]]
+      volumes_code_remote: $[[ volumes.code.remote ]]
+      volumes_config_remote: $[[ volumes.config.remote ]]
+      volumes_notebooks_remote: $[[ volumes.notebooks.remote ]]
+      volumes_results_remote: $[[ volumes.results.remote ]]
