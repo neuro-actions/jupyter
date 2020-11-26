@@ -33,7 +33,7 @@ volumes:
 
 jobs:
   jupyter:
-    action: gh:neuro-actions/jupyter@ys/licence_and_preset
+    action: gh:neuro-actions/jupyter@master
     args:
       image: neuromation/base
       preset: cpu-small
