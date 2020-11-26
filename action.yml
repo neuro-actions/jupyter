@@ -7,6 +7,7 @@ inputs:
   image:
     descr: image name
   preset:
+    default: ""
     descr: resource preset to use, when running the jupyter job
   multi_args:
     descr: additional arguments
