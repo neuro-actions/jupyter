@@ -2,7 +2,6 @@ kind: live
 title: Test
 
 defaults:
-  preset: cpu-small
   life_span: 1h
 
 volumes:
@@ -37,8 +36,9 @@ jobs:
     action: gh:neuro-actions/jupyter@master
     args:
       image: neuromation/base
-      volumes_data_remote: $[[ volumes.data.remote ]]
-      volumes_code_remote: $[[ volumes.code.remote ]]
-      volumes_config_remote: $[[ volumes.config.remote ]]
-      volumes_notebooks_remote: $[[ volumes.notebooks.remote ]]
-      volumes_results_remote: $[[ volumes.results.remote ]]
+      preset: cpu-small
+      volumes_data_remote: ${{ volumes.data.remote }}
+      volumes_code_remote: ${{ volumes.code.remote }}
+      volumes_config_remote: ${{ volumes.config.remote }}
+      volumes_notebooks_remote: ${{ volumes.notebooks.remote }}
+      volumes_results_remote: ${{ volumes.results.remote }}

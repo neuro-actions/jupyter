@@ -6,6 +6,8 @@ descr: runs Jupyter notebook with your image and opens it in default web browser
 inputs:
   image:
     descr: image name
+  preset:
+    descr: resource preset to use, when running the jupyter job
   multi_args:
     descr: additional arguments
     default: ""
@@ -28,23 +30,25 @@ inputs:
 
 job:
     multi: True
-    image: $[[ inputs.image ]]
-    http_port: $[[ inputs.http_port ]]
-    http_auth: $[[ inputs.http_auth ]]
+    image: ${{ inputs.image }}
+    preset: ${{ inputs.preset }}
+    http_port: ${{ inputs.http_port }}
+    http_auth: ${{ inputs.http_auth }}
     browse: True
     detach: True
     volumes:
-      - "$[[ inputs.volumes_data_remote ]]:/project/data:ro"
-      - "$[[ inputs.volumes_code_remote ]]:/project/modules:rw"
-      - "$[[ inputs.volumes_config_remote ]]:/project/config:ro"
-      - "$[[ inputs.volumes_notebooks_remote ]]:/project/notebooks:rw"
-      - "$[[ inputs.volumes_results_remote ]]:/project/results:rw"
+      - "${{ inputs.volumes_data_remote }}:/project/data:ro"
+      - "${{ inputs.volumes_code_remote }}:/project/modules:rw"
+      - "${{ inputs.volumes_config_remote }}:/project/config:ro"
+      - "${{ inputs.volumes_notebooks_remote }}:/project/notebooks:rw"
+      - "${{ inputs.volumes_results_remote }}:/project/results:rw"
     env:
       PYTHONPATH: /project/modules
     cmd: >-
-      jupyter notebook $[[ inputs.multi_args ]]
+      jupyter notebook ${{ inputs.multi_args }}
         --no-browser
         --ip=0.0.0.0
+        --port=${{ inputs.http_port }}
         --allow-root
         --NotebookApp.token=
         --notebook-dir=/project/notebooks
