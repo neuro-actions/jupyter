@@ -4,6 +4,12 @@ author: Alexey Naiden
 descr: runs Jupyter notebook with your image and opens it in default web browser
 
 inputs:
+  jupyter_mode:
+    descr: The mode in which to run Jupyter, 'notebook' or 'lab'
+    default: "notebook"
+  job_name:
+    descr: Predictible subdomain name, which replaces JobID in the full job URI
+    default: ""
   image:
     descr: image name
   preset:
@@ -31,6 +37,7 @@ inputs:
 job:
     multi: True
     image: ${{ inputs.image }}
+    name: ${{ inputs.job_name }}
     preset: ${{ inputs.preset }}
     http_port: ${{ inputs.http_port }}
     http_auth: ${{ inputs.http_auth }}
@@ -45,7 +52,7 @@ job:
     env:
       PYTHONPATH: /project/modules
     cmd: >-
-      jupyter notebook ${{ inputs.multi_args }}
+      jupyter ${{ inputs.jupyter_mode }} ${{ inputs.multi_args }}
         --no-browser
         --ip=0.0.0.0
         --port=${{ inputs.http_port }}
