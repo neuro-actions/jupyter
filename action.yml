@@ -44,9 +44,9 @@ job:
     browse: True
     detach: True
     volumes:
-      - "${{ inputs.volumes_data_remote }}:/project/data:ro"
+      - "${{ inputs.volumes_data_remote }}:/project/data:rw"
       - "${{ inputs.volumes_code_remote }}:/project/modules:rw"
-      - "${{ inputs.volumes_config_remote }}:/project/config:ro"
+      - "${{ inputs.volumes_config_remote }}:/project/config:rw"
       - "${{ inputs.volumes_notebooks_remote }}:/project/notebooks:rw"
       - "${{ inputs.volumes_results_remote }}:/project/results:rw"
     env:
