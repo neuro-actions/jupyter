@@ -37,13 +37,13 @@ args:
 
 ### `job_name`
 
-Predictable subdomain name which replaces JobID in the full job URI. `""` by default.
+Predictable subdomain name which replaces the job's ID in the full job URI. `""` by default.
 
 ### Example
 
 ```
 args:
-	job_name: "job363"
+	job_name: "jupyter-job"
 ```
 
 ### `image`
