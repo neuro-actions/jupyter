@@ -21,7 +21,7 @@ inputs:
     descr: Predictible subdomain name, which replaces JobID in the full job URI
     default: ""
   image:
-    descr: image name used to run 
+    descr: image name used to run Jupyter, make sure it is installed
     default: "neuromation/base:latest"
   preset:
     descr: resource preset to use, when running the jupyter job
