@@ -4,7 +4,7 @@ This is a [`neuro-flow`](https://github.com/neuro-inc/neuro-flow) action launchi
 
 It requires the name of the image on which to run Notebook, as well as references to 5 volumes: data, code, config, notebooks and results. These volumes will be mounted to `/project/data`, `/project/modules`, `/project/config`, `/project/notebooks`, and `/project/results` respectively.
 
-After the Notebook instance is launched, its Web UI will be automatically opened in the default browser.
+After the Jupyter instance is launched, its Web UI will be automatically opened in the default browser.
 
 ### Quick example:
 
