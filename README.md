@@ -4,7 +4,7 @@ This is a [`neuro-flow`](https://github.com/neuro-inc/neuro-flow) action launchi
 
 It requires the name of the image on which to run Notebook, as well as references to 5 volumes: data, code, config, notebooks and results. These volumes will be mounted to `/project/data`, `/project/modules`, `/project/config`, `/project/notebooks`, and `/project/results` respectively.
 
-After the Notebook instance is launched, its Web UI will be automatically opened in the default browser.
+After the Jupyter instance is launched, its Web UI will be automatically opened in the default browser.
 
 ### Quick example:
 
@@ -54,7 +54,7 @@ Reference to a code volume
 
 ```
 args:
-	volumes_data_remote: ${{ volumes.code.remote }}
+	volumes_code_remote: ${{ volumes.code.remote }}
 ```
 
 ### `volumes_config_remote`
@@ -65,7 +65,7 @@ Reference to a config volume
 
 ```
 args:
-	volumes_data_remote: ${{ volumes.config.remote }}
+	volumes_config_remote: ${{ volumes.config.remote }}
 ```
 
 ### `volumes_notebooks_remote`
@@ -76,7 +76,7 @@ Reference to a notebooks volume
 
 ```
 args:
-	volumes_data_remote: ${{ volumes.notebooks.remote }}
+	volumes_notebooks_remote: ${{ volumes.notebooks.remote }}
 ```
 
 ### `volumes_results_remote`
@@ -87,7 +87,7 @@ Reference to a results volume
 
 ```
 args:
-	volumes_data_remote: ${{ volumes.results.remote }}
+	volumes_results_remote: ${{ volumes.results.remote }}
 ```
 
 ### `preset`
