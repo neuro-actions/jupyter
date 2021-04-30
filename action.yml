@@ -4,25 +4,6 @@ author: Alexey Naiden
 descr: runs Jupyter notebook with your image and opens it in default web browser
 
 inputs:
-  jupyter_mode:
-    descr: The mode in which to run Jupyter, 'notebook' or 'lab'
-    default: "notebook"
-  job_name:
-    descr: Predictible subdomain name, which replaces JobID in the full job URI
-    default: ""
-  image:
-    descr: image name
-  preset:
-    descr: resource preset to use, when running the jupyter job
-  multi_args:
-    descr: additional arguments
-    default: ""
-  http_port:
-    descr: http port for jupyter
-    default: "8888"
-  http_auth:
-    descr: whether to use http auth for jupter
-    default: "True"
   volumes_data_remote:
     descr: reference to a data volume
   volumes_code_remote:
@@ -33,6 +14,27 @@ inputs:
     descr: reference to a notebooks volume
   volumes_results_remote:
     descr: reference to a results volume
+  jupyter_mode:
+    descr: The mode in which to run Jupyter, 'notebook' or 'lab'
+    default: "notebook"
+  job_name:
+    descr: Predictible subdomain name, which replaces JobID in the full job URI
+    default: ""
+  image:
+    descr: image name used to run Jupyter, make sure it is installed
+    default: "neuromation/base:latest"
+  preset:
+    descr: resource preset to use, when running the jupyter job
+    default: ""
+  multi_args:
+    descr: additional arguments
+    default: ""
+  http_port:
+    descr: http port for jupyter
+    default: "8888"
+  http_auth:
+    descr: whether to use http auth for jupter
+    default: "True"
 
 job:
     multi: True

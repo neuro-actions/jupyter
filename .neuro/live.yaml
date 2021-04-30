@@ -35,8 +35,6 @@ jobs:
   jupyter:
     action: gh:neuro-actions/jupyter@master
     args:
-      image: neuromation/base
-      preset: cpu-small
       volumes_data_remote: ${{ volumes.data.remote }}
       volumes_code_remote: ${{ volumes.code.remote }}
       volumes_config_remote: ${{ volumes.config.remote }}
