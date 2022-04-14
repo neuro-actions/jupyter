@@ -35,6 +35,9 @@ inputs:
   http_auth:
     descr: whether to use http auth for jupter
     default: "True"
+  cull_idle_timeout:
+    descr: timeout in seconds after which the idle kernel will be killed
+    default: "7200"
 
 job:
     multi: True
@@ -61,6 +64,6 @@ job:
         --allow-root
         --NotebookApp.token=
         --notebook-dir=/project/notebooks
-        --NotebookApp.shutdown_no_activity_timeout=7200
-        --MappingKernelManager.cull_idle_timeout=7200
+        --NotebookApp.shutdown_no_activity_timeout=900
+        --MappingKernelManager.cull_idle_timeout=${{ inputs.cull_idle_timeout }}
         --MappingKernelManager.cull_connected=true
