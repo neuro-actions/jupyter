@@ -35,6 +35,11 @@ inputs:
   http_auth:
     descr: whether to use http auth for jupter
     default: "True"
+  shutdown_no_activity_timeout:
+    descr: |
+      timeout in seconds after which the server will shutdown 
+      if there are no running kernels
+    default: "900"
 
 job:
     multi: True
@@ -61,6 +66,6 @@ job:
         --allow-root
         --NotebookApp.token=
         --notebook-dir=/project/notebooks
-        --NotebookApp.shutdown_no_activity_timeout=7200
+        --NotebookApp.shutdown_no_activity_timeout=${{ inputs.shutdown_no_activity_timeout }}
         --MappingKernelManager.cull_idle_timeout=7200
         --MappingKernelManager.cull_connected=true
