@@ -66,4 +66,4 @@ job:
         --notebook-dir=/project/notebooks
         --NotebookApp.shutdown_no_activity_timeout=900
         --MappingKernelManager.cull_idle_timeout=${{ inputs.cull_idle_timeout }}
-        --MappingKernelManager.cull_connected=true
+        --MappingKernelManager.cull_connected=True
