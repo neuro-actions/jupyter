@@ -149,3 +149,15 @@ Whether to use HTTP authentication for Jupyter or not. `"True"` by default.
 args:
     http_auth: "False"
 ```
+
+### `cull_idle_timeout`
+
+Timeout in seconds after which the idle kernel will be killed `"7200"` (2 hours) by default.
+If set to "0" - the Jupyter instance will not be terminated automatically.
+
+### Example
+
+```
+args:
+    cull_idle_timeout: "0"
+```
