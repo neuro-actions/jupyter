@@ -6,38 +6,51 @@ descr: runs Jupyter notebook with your image and opens it in default web browser
 inputs:
   volumes_data_remote:
     descr: reference to a data volume
+    type: str
   volumes_code_remote:
     descr: reference to a code volume
+    type: str
   volumes_config_remote:
     descr: reference to a config volume
+    type: str
   volumes_notebooks_remote:
     descr: reference to a notebooks volume
+    type: str
   volumes_results_remote:
     descr: reference to a results volume
+    type: str
   jupyter_mode:
     descr: The mode in which to run Jupyter, 'notebook' or 'lab'
     default: "notebook"
+    type: str
   job_name:
     descr: Predictible subdomain name, which replaces JobID in the full job URI
     default: ""
+    type: str
   image:
     descr: image name used to run Jupyter, make sure it is installed
     default: "neuromation/base:latest"
+    type: str
   preset:
     descr: resource preset to use, when running the jupyter job
     default: ""
+    type: str
   multi_args:
     descr: additional arguments
     default: ""
+    type: str
   http_port:
     descr: http port for jupyter
-    default: "8888"
+    default: 8888
+    type: int
   http_auth:
     descr: whether to use http auth for jupter
-    default: "True"
+    default: True
+    type: bool
   cull_idle_timeout:
     descr: timeout in seconds after which the idle kernel will be killed
-    default: "7200"
+    default: 7200
+    type: int
 
 job:
     multi: True
